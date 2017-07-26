@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Dynamite Arena</title>
+      <script src="gfx/bomb.js"></script>
+      <script src="gfx/explosion.js"></script>
+      <script src="gfx/powerup_bomb.js"></script>
+      <script src="gfx/powerup_range.js"></script>
+      <script src="gfx/player_back.js"></script>
+      <script src="gfx/player_front.js"></script>
+      <script src="gfx/player_left.js"></script>
+      <script src="gfx/player_right.js"></script>
+      <script src="gfx/player_dead.js"></script>
+      <script src="src/game.js"></script>
+      <script src="src/ai.js"></script>
+   </head>
+   <body onload="main();" style="background-color:#1F1B12;">
+      <canvas id="bg" style="padding:0; margin:auto; display:block; position:absolute; top:0; bottom:0; left:0; right:0; z-index:1;"></canvas>
+      <canvas id="fg" style="padding:0; margin:auto; display:block; position:absolute; top:0; bottom:0; left:0; right:0; z-index:2;"></canvas>
+      <div style="display:none;">
+         <img id="tile_none" src="gfx/tile_none.png">
+         <img id="tile_rock" src="gfx/tile_rock.png">
+         <img id="tile_metal" src="gfx/tile_metal.png">
+      </div>
+   </body>
+</html>
