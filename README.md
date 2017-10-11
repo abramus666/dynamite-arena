@@ -8,7 +8,7 @@ It all started a long time ago. In high school, me and my friends played that ga
 Fast forward to a fairly recent past, I decided to port my old game to Javascript in an attempt to learn that language. After I was done, I thought "why not make it better?" So I improved graphics, configurability, and added AI.
 - I remade textures in higher resolution, added shadows to make the game look more 3D-like, and most importantly created vector models for all moving objects. (I'm not certain the latter change was a good idea. Vector models are not optimal from efficiency standpoint, because each of them consists of multiple polygons, and their rendering on HTML5 canvas is rather slow. Sprites would be faster. On the other hand, model animation is interpolated and thus can be very smooth if your machine is good enough.)
 - I added a menu to configure map size and number of players.
-- I added an AI system so that you can play against computer-controlled opponents. This was my first attempt at non-trivial game AI, and I'm happy about results. Of course AI is nowhere near as smart as a decent player would be, but it compensates for it with a blazing fast reflex ;) There are no difficulty settings.
+- I added an AI system so that you can play against computer-controlled opponents. This was my first attempt at non-trivial game AI, and I'm happy about results. Of course AI is nowhere near as smart as a decent player would be (gameplay is too deep for that), but it compensates for it with a millisecond-tight precision :wink: All in all, AI makes a reasonable challenge while not appearing that much "artificial", so it's not bad. There are no difficulty settings.
 
 Menu controls:
 - Use Esc to toggle menu on/off.
