@@ -192,11 +192,11 @@ function newMenuOption_PowerUps() {
 function newMenuOption_Player(number) {
    var items, item_ix;
    if(number == PLAYER_1) {
-      items = [[PLAYER_HUMAN, 'Human (Arrows + Enter)'], [PLAYER_BOT, 'Computer'], [PLAYER_NONE, 'None']];
+      items = [[PLAYER_BOT, 'Computer'], [PLAYER_HUMAN, 'Human (Arrows + Enter)'], [PLAYER_NONE, 'None']];
       item_ix = 0;
    } else if(number == PLAYER_2) {
-      items = [[PLAYER_HUMAN, 'Human (W,S,A,D + Q)'], [PLAYER_BOT, 'Computer'], [PLAYER_NONE, 'None']];
-      item_ix = 1;
+      items = [[PLAYER_BOT, 'Computer'], [PLAYER_HUMAN, 'Human (W,S,A,D + Q)'], [PLAYER_NONE, 'None']];
+      item_ix = 0;
    } else {
       items = [[PLAYER_BOT, 'Computer'], [PLAYER_NONE, 'None']];
       item_ix = 0;
@@ -235,7 +235,7 @@ function createMenu() {
          newMenuOption_Player(PLAYER_4),
          newMenuOption_Start()
       ],
-      option_ix: 6,
+      option_ix: -1,
       active: false
    };
 }
@@ -252,17 +252,40 @@ function createConfiguration() {
    };
 }
 
-function updateMenu(keycode) {
-   if(keycode == KEY_ENTER) {
-      g_menu.options[g_menu.option_ix].apply();
-   } else if(keycode == KEY_LEFT) {
-      g_menu.options[g_menu.option_ix].prev();
-   } else if(keycode == KEY_RIGHT) {
-      g_menu.options[g_menu.option_ix].next();
-   } else if(keycode == KEY_UP) {
-      g_menu.option_ix = decWithWrapAround(g_menu.option_ix, g_menu.options.length);
-   } else if(keycode == KEY_DOWN) {
-      g_menu.option_ix = incWithWrapAround(g_menu.option_ix, g_menu.options.length);
+function updateMenuKey(keycode) {
+   if(g_menu.option_ix >= 0) {
+      if(keycode == KEY_ENTER) {
+         g_menu.options[g_menu.option_ix].apply();
+      } else if(keycode == KEY_LEFT) {
+         g_menu.options[g_menu.option_ix].prev();
+      } else if(keycode == KEY_RIGHT) {
+         g_menu.options[g_menu.option_ix].next();
+      } else if(keycode == KEY_UP) {
+         g_menu.option_ix = decWithWrapAround(g_menu.option_ix, g_menu.options.length);
+      } else if(keycode == KEY_DOWN) {
+         g_menu.option_ix = incWithWrapAround(g_menu.option_ix, g_menu.options.length);
+      }
+   } else {
+      if(keycode == KEY_UP) {
+         g_menu.option_ix = g_menu.options.length-1;
+      } else if(keycode == KEY_DOWN) {
+         g_menu.option_ix = 0;
+      }
+   }
+}
+
+function updateMenuMouse(mouse_pos, click) {
+   // The Y coordinates here need to match drawMenu().
+   if(mouse_pos[1] >= 125 && mouse_pos[1] < (125 + 25 * g_menu.options.length)) {
+      g_menu.option_ix = Math.floor((mouse_pos[1] - 125) / 25);
+      if(click) {
+         g_menu.options[g_menu.option_ix].apply();
+      }
+   } else {
+      g_menu.option_ix = -1;
+      if(click) {
+         g_menu.active = false;
+      }
    }
 }
 
@@ -835,19 +858,38 @@ function tick(timestamp) {
 }
 
 function keydown(evt) {
-   evt = evt || window.event;
    if(evt.keyCode == KEY_ESC){
       g_menu.active = !g_menu.active;
    } else if(g_menu.active) {
-      updateMenu(evt.keyCode);
+      updateMenuKey(evt.keyCode);
    } else {
       g_keyboard[evt.keyCode] = true;
    }
 }
 
 function keyup(evt) {
-   evt = evt || window.event;
    g_keyboard[evt.keyCode] = false;
+}
+
+function getMousePos(evt) {
+   var rect = document.getElementById('fg').getBoundingClientRect();
+   var x = evt.clientX - rect.left;
+   var y = evt.clientY - rect.top;
+   return [x, y];
+}
+
+function mousemove(evt) {
+   if(g_menu.active) {
+      updateMenuMouse(getMousePos(evt), false);
+   }
+}
+
+function mouseclick(evt) {
+   if(g_menu.active) {
+      updateMenuMouse(getMousePos(evt), true);
+   } else {
+      g_menu.active = true;
+   }
 }
 
 function startGame() {
@@ -882,8 +924,10 @@ function main() {
    initModel(model_player_dead);
    createMenu();
    startGame();
-   g_menu.active = true;
+   g_menu.active = false;
    document.onkeydown = keydown;
    document.onkeyup = keyup;
+   document.onmousemove = mousemove;
+   document.onclick = mouseclick;
    window.requestAnimationFrame(tick);
 }
