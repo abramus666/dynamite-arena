@@ -1,5 +1,5 @@
 # Dynamite Arena
-### [Click to run the game](https://abramus666.github.io/dynamite-arena/)
+[Click to run the game](https://abramus666.github.io/dynamite-arena/)
 
 This is my attempt to bring back local multiplayer gameplay of the classic Dynablaster/Bomberman game.
 
@@ -10,15 +10,15 @@ Fast forward to a fairly recent past, I ported my old game to Javascript as I wa
 - I added a menu to configure map size and number of players.
 - I added an AI system so that you can play against computer-controlled opponents. This was my first attempt at non-trivial game AI, and I'm happy about results. It is nowhere near as smart as a decent player would be, but it compensates for it with a millisecond-tight precision :wink: AI makes a reasonable challenge while not appearing that much "artificial". There are no difficulty settings.
 
-### Menu controls:
+Menu controls:
 - Menu can be controlled using mouse or keyboard (arrow keys and Enter).
 - Click mouse or press Esc to toggle menu on/off.
 - Click on "Start game", or select it using arrow keys and press Enter, to apply configuration changes and start a new game.
 
-### Player 1 controls:
+Player 1 controls:
 - Use arrow keys to move.
 - Press Enter to set bomb.
 
-### Player 2 controls:
+Player 2 controls:
 - Use W,S,A,D keys to move.
 - Press Q key to set bomb.
