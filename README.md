@@ -1,5 +1,4 @@
-# Dynamite Arena
-https://abramus666.github.io/dynamite-arena/
+# [Dynamite Arena](https://abramus666.github.io/dynamite-arena/)
 
 This is my attempt to bring back local multiplayer gameplay of the classic Dynablaster/Bomberman game.
 
